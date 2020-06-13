@@ -7,7 +7,7 @@
 
 int main() {
 
-  char s[] = "ThisIsAGoodStart";
+  char s[] = "ThisIsAGoodStArt";
   char *ptr = malloc(sizeof(char) * 17);
   int i = 0;
 
@@ -16,10 +16,9 @@ int main() {
   strcpy(ptr, s);
 
   while(++i) {
-    printf("#%d - %s : %z\n", i, ptr, ptr);
+    printf("#%d - %s : %p\n", i, ptr, ptr);
     sleep(1);
   }
-
-  return 0;
   
+  return 0;
 }
