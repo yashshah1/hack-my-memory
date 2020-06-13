@@ -35,20 +35,22 @@ while maps_file_line:
       maps_file.close()
       exit(1)
     
-    low, high = addr_range.split("-") # Getting the addresses
+    low, high = addr_range.split("-") # Getting the addresses of my heap
     low = int(low, 16) # Getting it from Base 16
     high = int(high, 16) # Getting it from Base 16
 
     print("The heap starts at: {}".format(low))
     print("The heap ends at: {}".format(high))
 
-
     mem_file = open(mem_filename, 'rb+')
 
-    # Now we want to seek to the start of our heap, which is given to us by low
+    # Now we want to seek to the start of our heap
+    # The start address of the heap is given to us by low
     mem_file.seek(low)
 
-    # Now, we read the size of our heap
+    # Now, we need to read our heap
+    # So from low, we read the size of the heap
+    # Which is given by (high - low)
     heap = mem_file.read(high - low)
 
     # Now let's find our string
@@ -65,13 +67,12 @@ while maps_file_line:
 
     print("* Writing {} in the heap".format(new_string))
 
-    mem_file.seek(low + start_index) # Get back to where we want to write it
+    # We want to start writing our new string where
+    # the old string is stored, which is at (low + start_index)
+    mem_file.seek(low + start_index) 
     mem_file.write(bytes(new_string, "ASCII"))
 
     maps_file.close()
     mem_file.close()
   
     break
-
-
-
